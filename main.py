@@ -1,14 +1,3 @@
-def create_students():
-    dictionary = [
-        {"name": "Petr", "grades": [80, 75, 82, 79, 88]},
-        {"name": "Slava", "grades": [84, 74, 81, 76, 86]},
-        {"name": "Masha", "grades": [77, 86, 81, 84, 87]},
-        {"name": "Alina", "grades": [77, 76, 87, 89, 86]},
-        {"name": "Denis", "grades": [76, 76, 74, 78, 70]}
-    ]
-    return dictionary
-
-
 def calculate_average(grades):
     if not grades:
         return 0
@@ -44,18 +33,31 @@ def remove_student_with_lowest_average(students):
     if student_to_remove:
         students.remove(student_to_remove)
 
-    return students
+    return calculate_overall_average(students)
 
 
-students = create_students()
+def add_student(students, new_student):
+    students.append(new_student)
+    return calculate_overall_average(students)
+
+
+students = [
+        {"name": "Petr", "grades": [80, 75, 82, 79, 88]},
+        {"name": "Slava", "grades": [84, 74, 81, 76, 86]},
+        {"name": "Masha", "grades": [77, 86, 81, 84, 87]},
+        {"name": "Alina", "grades": [77, 76, 87, 89, 86]},
+        {"name": "Denis", "grades": [76, 76, 74, 78, 70]}
+    ]
+
 print_all_students(students)
 overall_average = calculate_overall_average(students)
 print(f"Общий средний балл по всем студентам: {overall_average:.2f}\n")
 
 new_student = {"name": "Nina", "grades": [84, 77, 82, 75, 81]}
-students.append(new_student)
-
-remove_student_with_lowest_average(students)
+overall_average = add_student(students, new_student)
 print_all_students(students)
-overall_average = calculate_overall_average(students)
-print(f"Новый средний балл по всем студентам: {overall_average:.2f}\n")
+print(f"Обновленный средний балл после добавления нового студента: {overall_average:.2f}\n")
+
+overall_average = remove_student_with_lowest_average(students)
+print_all_students(students)
+print(f"Обновленный средний балл после удаления студента: {overall_average:.2f}\n")
